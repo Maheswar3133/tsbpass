@@ -8,10 +8,11 @@ const architectController = {
      */
     create: async (req, res) => {
         try {
-            // const validReq = await joiValidator.jsonValidator(req.body, architectSchema.architect());
-            const architectResult = await architechManager.createArchitect(req.body);
+            const validReq = await joiValidator.jsonValidator(req.body, architectSchema.architect());
+            const architectResult = await architechManager.createArchitect(validReq);
             res.send(architectResult)
         } catch (err) {
+            console.log(err)
             res.send(err)
         }
     },

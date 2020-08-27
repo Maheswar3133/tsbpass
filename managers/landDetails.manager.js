@@ -1,12 +1,11 @@
 const landDetailsModel = require('../models').land_details;
-const applicantsModel = require('../models').applicants;
-
+const applicantMananger = require('../managers/applicant.manager')
 const landDetailsManager = {
 
     createLandDetails: (landDetails) => {
         return new Promise(async (resolve, reject) => {
             try {
-                const applicantResult = await landDetailsManager.createApplicant(landDetails);
+                const applicantResult = await applicantMananger.createApplicant(landDetails);
                 if (!applicantResult.id) {
                     reject({message: 'Server Error.'})
                 }
@@ -19,18 +18,9 @@ const landDetailsManager = {
         })
     },
 
-    createApplicant: (landDetails) => {
-        return new Promise((resolve, reject) => {
-            applicantsModel.create(landDetails)
-                .then(resp => {
-                    resolve(resp.dataValues);
-                })
-                .catch(err => {
-                    reject(err)
-                });
-        });
-    },
-
+    /**
+     * Create a new record in land details table
+     */
     createLandRecord: (landDetails) => {
         return new Promise((resolve, reject) => {
             landDetailsModel.create(landDetails)

@@ -1,12 +1,11 @@
 const ArchitectModel = require('../models').architect_details;
-const landDetailsManager = require('../managers/landDetails.manager')
-
+const applicantMananger = require('../managers/applicant.manager')
 const architectManager = {
 
     createArchitect: (archiTechDetails) => {
         return new Promise(async (resolve, reject) => {
             try {
-                const applicantResult = await landDetailsManager.createApplicant(archiTechDetails);
+                const applicantResult = await applicantMananger.createApplicant(archiTechDetails);
                 if (!applicantResult.id) {
                     reject({ message: 'Server Error.' })
                 }
@@ -19,6 +18,9 @@ const architectManager = {
         })
     },
 
+    /**
+     * Add architect record in architect table
+     */
     addArchitect: (architect) => {
         const architectDetails = {
             applicant_id: architect.applicant_id,
